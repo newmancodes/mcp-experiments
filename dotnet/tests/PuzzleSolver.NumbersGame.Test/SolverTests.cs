@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using System.Runtime.InteropServices;
+using Shouldly;
 
 namespace PuzzleSolver.NumbersGame.Test;
 
@@ -36,19 +37,22 @@ public class SolverTests
         result.Instructions.Count.ShouldBe(2);
     }
 
-    [Fact]
-    public void A_Possible_Puzzle_Is_Reported_As_Such_With_Solution()
+    [Theory]
+    [InlineData(new[] { 1, 2, 3, 4, 5, 6 }, 12, 3)]
+    [InlineData(new[] { 1, 4, 4, 5, 6, 50 }, 350, 4)]
+    [InlineData(new[] { 1, 3, 3, 8, 9, 50 }, 410, 5)]
+    [InlineData(new[] { 2, 3, 3, 5, 6, 75 }, 277, 6)]
+    [InlineData(new[] { 1, 10, 25, 50, 75, 100 }, 813, 7)]
+    public void A_Possible_Puzzle_Is_Reported_As_Such_With_Solution(int[] numbers, int target, int expectedSolutionSteps)
     {
         // Arrange
-        var board = new[] { 1, 3, 3, 8, 9, 50 };
-        var target = new Target(410);
         var sut = new Solver();
 
         // Act
-        var result = sut.Solve(board, target);
+        var result = sut.Solve(numbers, new Target(target));
 
         // Assert
         result.SolutionFound.ShouldBeTrue();
-        result.Instructions.Count.ShouldBe(5);
+        result.Instructions.Count.ShouldBe(expectedSolutionSteps);
     }
 }

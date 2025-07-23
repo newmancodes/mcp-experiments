@@ -66,7 +66,7 @@ public class Board
                     else
                     {
                         var subtractionResult = Number.Generate(jthOperandValue - ithOperandValue);
-                        var subtraction = new MathematicalOperation(ithOperand, Operator.Subtraction, jthOperand, subtractionResult);
+                        var subtraction = new MathematicalOperation(jthOperand, Operator.Subtraction, ithOperand, subtractionResult);
                         yield return new PossibleAction(subtraction, Execute(subtraction));
                     }
                 }
