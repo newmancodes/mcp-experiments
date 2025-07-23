@@ -1,2 +1,9 @@
 {
+	"servers": {
+		"puzzle-solver-dotnet": {
+			"url": "http://localhost:5001",
+			"type": "http"
+		}
+	},
+	"inputs": []
 }
