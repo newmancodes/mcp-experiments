@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolver.NumbersGame.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolver.BreadthFirstSearch", "src\PuzzleSolver.BreadthFirstSearch\PuzzleSolver.BreadthFirstSearch.csproj", "{4909EF27-6647-4C08-B407-B0884065A478}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolver.MCPServer", "src\PuzzleSolver.MCPServer\PuzzleSolver.MCPServer.csproj", "{630F07E7-CC84-4BD6-96D7-66D0AB681954}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{4909EF27-6647-4C08-B407-B0884065A478}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4909EF27-6647-4C08-B407-B0884065A478}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4909EF27-6647-4C08-B407-B0884065A478}.Release|Any CPU.Build.0 = Release|Any CPU
+		{630F07E7-CC84-4BD6-96D7-66D0AB681954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630F07E7-CC84-4BD6-96D7-66D0AB681954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630F07E7-CC84-4BD6-96D7-66D0AB681954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630F07E7-CC84-4BD6-96D7-66D0AB681954}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
