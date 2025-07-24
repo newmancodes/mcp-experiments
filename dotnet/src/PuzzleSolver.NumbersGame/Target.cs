@@ -3,7 +3,7 @@ namespace PuzzleSolver.NumbersGame;
 public class Target
 {
     private const int MinTarget = 1;
-    private const int MaxTarget = 1_000;
+    private const int MaxTarget = 999;
     
     public int Value { get; init; }
 

@@ -16,7 +16,7 @@ public class TargetTests
         // Assert
         var ex = act.ShouldThrow<ArgumentOutOfRangeException>();
         ex.ParamName.ShouldBe("target");
-        ex.Message.ShouldStartWith("Target must be between 1 and 1000.");
+        ex.Message.ShouldStartWith("Target must be between 1 and 999.");
     }
 
     [Fact]
@@ -31,14 +31,14 @@ public class TargetTests
         // Assert
         var ex = act.ShouldThrow<ArgumentOutOfRangeException>();
         ex.ParamName.ShouldBe("target");
-        ex.Message.ShouldStartWith("Target must be between 1 and 1000.");
+        ex.Message.ShouldStartWith("Target must be between 1 and 999.");
     }
 
     [Fact]
-    public void Target_Must_Not_Be_Greater_Than_1000()
+    public void Target_Must_Not_Be_Greater_Than_999()
     {
         // Arrange
-        var target = 1_001;
+        var target = 1_000;
 
         // Act
         Action act = () => { _ = new Target(target); };
@@ -46,7 +46,7 @@ public class TargetTests
         // Assert
         var ex = act.ShouldThrow<ArgumentOutOfRangeException>();
         ex.ParamName.ShouldBe("target");
-        ex.Message.ShouldStartWith("Target must be between 1 and 1000.");
+        ex.Message.ShouldStartWith("Target must be between 1 and 999.");
     }
 
     [Fact]
@@ -58,6 +58,6 @@ public class TargetTests
         var target = Target.Random();
         
         // Assert
-        target.Value.ShouldBeInRange(1, 1_000);
+        target.Value.ShouldBeInRange(1, 999);
     }
 }
