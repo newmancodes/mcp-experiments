@@ -16,6 +16,9 @@ public class NumberGameTool
             var solver = new Solver();
             var solution = solver.Solve(numbers, new Target(target));
 
+            var formatter = new MarkdownSolverResultFormatter();
+            return formatter.Format(solution);
+
             return solution.SolutionFound ? "The game was solved." : "The game could not be solved.";
         }
         catch
