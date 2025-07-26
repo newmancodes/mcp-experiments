@@ -1,30 +1,27 @@
+from dataclasses import dataclass
 import random
+from typing import Self
 
+@dataclass(frozen=True)
 class Target:
     """
     Represents the target for the puzzle.
     """
 
-    @property
-    def target(self) -> int:
-        return self._target
+    target: int
 
-    def __init__(self, target: int) -> None:
+    def __post_init__(self) -> None:
         """
-        Initializes the Target with a specific target number.
-        
-        :param target: The target number for the puzzle.
+        Validates the Target after initialisation
         """
-        if target < 1 or target > 999:
+        if not 1 <= self.target <= 999:
             raise ValueError("Target must be between 1 and 999.")
 
-        self._target = target
-
-    @staticmethod
-    def random() -> 'Target':
+    @classmethod
+    def random(cls) -> Self:
         """
         Generates a random target number between 1 and 999.
         
         :return: A Target instance with a random target number.
         """
-        return Target(random.randint(1, 999))
+        return cls(random.randint(1, 999))
