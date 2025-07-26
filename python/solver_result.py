@@ -24,7 +24,7 @@ class SolverResult:
 
         self._board = board
         self._target = target
-        self._solution = len(solutions) > 0 and solutions[0] or None
+        self._solution = solutions[0] if solutions else None
 
     @classmethod
     def unsolvable(cls, board: Board, target: Target) -> Self:

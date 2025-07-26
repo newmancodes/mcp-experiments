@@ -16,8 +16,9 @@ class StateTraversal(Generic[TState, TStateTraversalDescription]):
         """
         Initializes the StateTraversal with a state and its description.
 
-        :param state: The current state of the traversal.
+        :param parent: The traversal that lead to this state in the search space or None if this is the root.
         :param description: A description of the traversal.
+        :param child: The child state resulting from the traversal.
         """
         self.parent = parent
         self.description = description
