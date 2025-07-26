@@ -71,6 +71,16 @@ The C# server runs on HTTP and exposes a `number-game-solver` tool that takes an
 - GitHub Actions CI builds and tests all three languages
 - The `.vscode/mcp.json` file configures VS Code to connect to the MCP servers
 
+### Development Methodology
+
+This project follows Test-First Test-Driven Development (TDD) practices using the Red-Green-Refactor cycle:
+
+1. **Red**: Write a failing test first that describes the desired behavior
+2. **Green**: Write the minimal code needed to make the test pass
+3. **Refactor**: Improve the code while keeping tests passing
+
+When working on any of the implementations (C#/Python/TypeScript), expect tests to fail initially - this is the intended starting point for TDD.
+
 ## Testing MCP Servers
 
 Use the MCP Inspector for debugging: `npx @modelcontextprotocol/inspector`
