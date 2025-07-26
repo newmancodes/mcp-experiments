@@ -12,7 +12,7 @@ The Countdown Numbers Game uses 6 numbers from a pool (1-10 and 25,50,75,100) to
 ## Repository Structure
 
 - `dotnet/` - C# implementation (fully functional MCP server)
-- `python/` - Python implementation (basic setup, MCP server not yet implemented)  
+- `python/` - Python implementation (mature core game logic, 94% test coverage, MCP server not yet implemented)  
 - `typescript/` - TypeScript implementation (basic setup, server.ts is empty)
 
 ## Build and Test Commands
@@ -31,8 +31,9 @@ dotnet run --project src/PuzzleSolver.MCPServer
 ### Python (python/)
 ```bash
 # From python/ directory
-uv run --frozen pytest  # Run tests
-uv run main.py          # Run main script
+uv run --frozen pytest                         # Run tests (27 tests, 94% coverage)
+uv run pytest --cov=. --cov-report=term-missing # Run tests with coverage report
+uv run main.py                                  # Run main script
 ```
 
 ### TypeScript (typescript/)
@@ -54,6 +55,15 @@ npm run dev         # Run with tsx
 
 The solver uses breadth-first search to find solutions, generating all possible mathematical operations at each state until the target is reached.
 
+### Python Implementation
+- **number.py**: Value object for game numbers with category-based validation (Small: 1-10, Large: 25,50,75,100)
+- **board.py**: Board aggregate with factory methods and builder pattern for construction validation
+- **board_rules.py**: Pure functions for game rules (starting size, reuse limits)
+- **target.py**: Validated target value object with random generation
+- **main.py**: Entry point (placeholder)
+
+The Python implementation follows modern Python practices with comprehensive type hints, property decorators, dataclasses, and the builder pattern implemented as nested classes. All game rules are enforced during board construction with appropriate validation.
+
 ### Key Classes
 - `Board`: Represents the current game state with available numbers
 - `Solver`: Main solving logic using BFS
@@ -66,7 +76,8 @@ The C# server runs on HTTP and exposes a `number-game-solver` tool that takes an
 ## Development Notes
 
 - The C# implementation is complete and functional
-- Python and TypeScript implementations are skeletal - only basic project structure exists
+- The Python implementation has mature core game logic with comprehensive test coverage (94%) but no MCP server yet
+- TypeScript implementation is skeletal - only basic project structure exists
 - All three implementations are configured for Docker deployment
 - GitHub Actions CI builds and tests all three languages
 - The `.vscode/mcp.json` file configures VS Code to connect to the MCP servers
@@ -80,6 +91,16 @@ This project follows Test-First Test-Driven Development (TDD) practices using th
 3. **Refactor**: Improve the code while keeping tests passing
 
 When working on any of the implementations (C#/Python/TypeScript), expect tests to fail initially - this is the intended starting point for TDD.
+
+### Language-Specific Guidelines
+
+**C# (.NET)**: Follow established .NET conventions with SOLID principles, dependency injection, and async/await patterns. Use record types for value objects and proper exception handling.
+
+**Python**: Adhere to PEP 8 and modern Python idioms. Use type hints throughout (`typing.Self` for self-referential returns), `@property` decorators for getters, `@dataclass(frozen=True)` for immutable value objects, and `@classmethod` for factory methods. Prefer composition over inheritance and use convention-based privacy (`_` prefixes).
+
+**TypeScript**: Follow TypeScript best practices with strict type checking, proper interface design, and modern ES6+ features. Use readonly properties for immutability and prefer functional programming patterns where appropriate.
+
+All implementations should maintain high test coverage (target >90%) and demonstrate mastery of each language's idioms and design patterns.
 
 ## Testing MCP Servers
 

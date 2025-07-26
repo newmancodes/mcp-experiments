@@ -13,7 +13,6 @@ public sealed class Solver
 
         foreach (var successfulStateTraversal in search.Execute(board))
         {
-            // TODO : Unpack the traversals to yield the solution path
             var solution = new Solution(successfulStateTraversal);
             return new SolverResult(board, target, solution);
         }
