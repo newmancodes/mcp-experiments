@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+
 from number import Number
 from operators import Operator
+
 
 @dataclass
 class MathematicalOperation:

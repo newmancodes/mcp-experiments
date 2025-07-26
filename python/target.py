@@ -2,6 +2,7 @@ import random
 from dataclasses import dataclass
 from typing import Self
 
+
 @dataclass(frozen=True)
 class Target:
     """
@@ -21,7 +22,7 @@ class Target:
     def random(cls) -> Self:
         """
         Generates a random target number between 1 and 999.
-        
+
         :return: A Target instance with a random target number.
         """
         return cls(random.randint(1, 999))
