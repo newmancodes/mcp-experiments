@@ -1,5 +1,7 @@
 # MCP Experiments
 
+[![CI](https://github.com/newmancodes/mcp-experiments/actions/workflows/main.yml/badge.svg)](https://github.com/newmancodes/mcp-experiments/actions/workflows/main.yml)
+
 Some simple experiments with Model Context Protocol (MCP). I'm primarily interested in seeing what is involved with created my own MCP servers. Preference is for Remote MCP servers (using HTTP) with the necessary authorization required to protect the resource server.
 
 ## Experiment
