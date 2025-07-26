@@ -21,6 +21,16 @@ def test_boards_must_have_six_numbers(numbers: list[int]) -> None:
     with pytest.raises(ValueError, match="Boards require six numbers."):
         Board.from_numbers(numbers)
 
+@pytest.mark.parametrize("number", [
+    (11),
+    (34),
+    (101)
+])
+def test_boards_can_only_use_valid_numbers(number: int) -> None:
+    """Test that boards can only use valid numbers."""
+    with pytest.raises(ValueError, match=f"The number {number} is not a valid board number."):
+        Board.from_numbers([ 1, 2, 3, 4, 5, number ])
+
 @pytest.mark.parametrize("small_number", [
     (1),
     (2),

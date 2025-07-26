@@ -1,7 +1,6 @@
 from typing import Self
-from number import Number
+from number import Number, NumberCategory
 from board_rules import _BoardRules
-from collections import Counter
 
 class Board:
     def __init__(self, numbers: list[Number]) -> None:
@@ -48,6 +47,9 @@ class Board:
             :return: The builder instance for chaining.
             """
             new_number = Number(number)
+
+            if not new_number.category in [ NumberCategory.SMALL, NumberCategory.LARGE ]:
+                raise ValueError(f"The number {number} is not a valid board number.")
 
             number_limit = _BoardRules.reuse_limit(new_number)
             if self._numbers.count(new_number) >= number_limit:
