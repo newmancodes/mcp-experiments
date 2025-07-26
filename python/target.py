@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 import random
+from dataclasses import dataclass
 from typing import Self
 
 @dataclass(frozen=True)

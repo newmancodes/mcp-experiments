@@ -1,4 +1,5 @@
 import pytest
+
 from target import Target
 
 def test_target_may_not_be_zero() -> None:

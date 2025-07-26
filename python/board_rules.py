@@ -1,5 +1,5 @@
-from number import NumberCategory
 import sys
+from number import NumberCategory
 
 class _BoardRules:
     @staticmethod

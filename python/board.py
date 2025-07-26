@@ -1,6 +1,7 @@
 from typing import Self
-from number import Number, NumberCategory
+
 from board_rules import _BoardRules
+from number import Number, NumberCategory
 
 class Board:
     def __init__(self, numbers: list[Number]) -> None:

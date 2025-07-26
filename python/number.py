@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
+from typing import Self
 
 class NumberCategory(Enum):
     SMALL = "small"
@@ -30,13 +31,16 @@ class Number:
     def category(self) -> NumberCategory:
         return self._category
     
-    def __eq__(self, other: 'Number') -> bool:
+    def __eq__(self, other: object) -> bool:
         """
         Checks equality with another Number.
         
         :param other: Another Number instance.
         :return: True if both numbers should be considered equal, False otherwise.
         """
+
+        if not isinstance(other, Number):
+            return False
 
         return self.value == other.value
     

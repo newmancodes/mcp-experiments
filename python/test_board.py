@@ -1,4 +1,5 @@
 import pytest
+
 from board import Board
 
 @pytest.mark.parametrize("numbers, expected", [
