@@ -1,6 +1,7 @@
 from typing import Self
 
 from board_rules import _BoardRules
+from exceptions import InvalidBoardSizeError, InvalidNumberError, NumberReuseError
 from number import Number, NumberCategory
 
 
@@ -11,7 +12,7 @@ class Board:
 
         :param numbers: A list of integers representing the board.
         """
-        self._numbers = numbers
+        self._numbers = tuple(numbers)
 
     def __str__(self) -> str:
         return ", ".join(str(number.value) for number in self._numbers)
@@ -25,7 +26,7 @@ class Board:
         :return: An instance of Board.
         """
         if len(numbers) != _BoardRules.starting_size():
-            raise ValueError("Boards require six numbers.")
+            raise InvalidBoardSizeError("Boards require six numbers.")
 
         builder = Board._BoardBuilder()
         for number in numbers:
@@ -52,11 +53,11 @@ class Board:
             new_number = Number(number)
 
             if new_number.category not in [NumberCategory.SMALL, NumberCategory.LARGE]:
-                raise ValueError(f"The number {number} is not a valid board number.")
+                raise InvalidNumberError(f"The number {number} is not a valid board number.")
 
             number_limit = _BoardRules.reuse_limit(new_number)
             if self._numbers.count(new_number) >= number_limit:
-                raise ValueError(f"The number {number} has been used too many times.")
+                raise NumberReuseError(f"The number {number} has been used too many times.")
 
             self._numbers.append(new_number)
             return self

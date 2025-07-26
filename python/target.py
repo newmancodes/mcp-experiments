@@ -2,6 +2,8 @@ import random
 from dataclasses import dataclass
 from typing import Self
 
+from exceptions import TargetValidationError
+
 
 @dataclass(frozen=True)
 class Target:
@@ -16,7 +18,7 @@ class Target:
         Validates the Target after initialisation
         """
         if not 1 <= self.target <= 999:
-            raise ValueError("Target must be between 1 and 999.")
+            raise TargetValidationError("Target must be between 1 and 999.")
 
     @classmethod
     def random(cls) -> Self:
