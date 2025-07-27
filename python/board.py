@@ -18,6 +18,7 @@ class Board:
         """
         numbers.sort(key=lambda num: num.value)
         self._numbers = tuple(numbers)
+        self._string_representation = ", ".join(str(number.value) for number in self._numbers)
 
     def __eq__(self, other: object) -> bool:
         """
@@ -35,7 +36,7 @@ class Board:
         return hash(str(self))
 
     def __str__(self) -> str:
-        return ", ".join(str(number.value) for number in self._numbers)
+        return self._string_representation
     
     def is_solved(self, target: Target) -> bool:
         """
@@ -57,46 +58,44 @@ class Board:
         
         for i in range(len(self._numbers) - 1):
             for j in range(i + 1, len(self._numbers)):
-                ithOperand = self._numbers[i]
-                ithOperandValue = ithOperand.value
-                jthOperand = self._numbers[j]
-                jthOperandValue = jthOperand.value
+                left_operand, right_operand = self._numbers[i], self._numbers[j]
+                left_operand_value, right_operand_value = left_operand.value, right_operand.value
 
                 # Add
-                addition_result = Number(ithOperandValue + jthOperandValue)
-                addition = MathematicalOperation(ithOperand, Operators.ADDITION, jthOperand, addition_result)
+                addition_result = Number(left_operand_value + right_operand_value)
+                addition = MathematicalOperation(left_operand, Operators.ADDITION, right_operand, addition_result)
                 yield Board.PossibleAction(addition, self._execute(addition))
 
                 # Multiply
-                multiplication_result = Number(ithOperandValue * jthOperandValue)
-                multiplication = MathematicalOperation(ithOperand, Operators.MULTIPLICATION, jthOperand, multiplication_result)
+                multiplication_result = Number(left_operand_value * right_operand_value)
+                multiplication = MathematicalOperation(left_operand, Operators.MULTIPLICATION, right_operand, multiplication_result)
                 yield Board.PossibleAction(multiplication, self._execute(multiplication))
                                            
                 # Subtract
-                if ithOperandValue != jthOperandValue:
-                    if ithOperandValue > jthOperandValue:
-                        subtraction_result = Number(ithOperandValue - jthOperandValue)
-                        subtraction = MathematicalOperation(ithOperand, Operators.SUBTRACTION, jthOperand, subtraction_result)
+                if left_operand_value != right_operand_value:
+                    if left_operand_value > right_operand_value:
+                        subtraction_result = Number(left_operand_value - right_operand_value)
+                        subtraction = MathematicalOperation(left_operand, Operators.SUBTRACTION, right_operand, subtraction_result)
                         yield Board.PossibleAction(subtraction, self._execute(subtraction))
                     else:
-                        subtraction_result = Number(jthOperandValue - ithOperandValue)
-                        subtraction = MathematicalOperation(jthOperand, Operators.SUBTRACTION, ithOperand, subtraction_result)
+                        subtraction_result = Number(right_operand_value - left_operand_value)
+                        subtraction = MathematicalOperation(right_operand, Operators.SUBTRACTION, left_operand, subtraction_result)
                         yield Board.PossibleAction(subtraction, self._execute(subtraction))
 
                 # Divide
-                if ithOperandValue == jthOperandValue:
+                if left_operand_value == right_operand_value:
                     division_result = Number(1)
-                    division = MathematicalOperation(ithOperand, Operators.DIVISION, jthOperand, division_result)
+                    division = MathematicalOperation(left_operand, Operators.DIVISION, right_operand, division_result)
                     yield Board.PossibleAction(division, self._execute(division))
-                elif ithOperandValue > jthOperandValue:
-                    if ithOperandValue % jthOperandValue:
-                        division_result = Number(ithOperandValue // jthOperandValue)
-                        division = MathematicalOperation(ithOperand, Operators.DIVISION, jthOperand, division_result)
+                elif left_operand_value > right_operand_value:
+                    if left_operand_value % right_operand_value == 0:
+                        division_result = Number(left_operand_value // right_operand_value)
+                        division = MathematicalOperation(left_operand, Operators.DIVISION, right_operand, division_result)
                         yield Board.PossibleAction(division, self._execute(division))
                 else:
-                    if jthOperandValue % ithOperandValue:
-                        division_result = Number(jthOperandValue // ithOperandValue)
-                        division = MathematicalOperation(jthOperand, Operators.DIVISION, ithOperand, division_result)
+                    if right_operand_value % left_operand_value == 0:
+                        division_result = Number(right_operand_value // left_operand_value)
+                        division = MathematicalOperation(right_operand, Operators.DIVISION, left_operand, division_result)
                         yield Board.PossibleAction(division, self._execute(division))
 
     def _execute(self, operation: MathematicalOperation) -> "Board":
