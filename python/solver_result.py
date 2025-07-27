@@ -13,6 +13,14 @@ from target import Target
 
 class SolverResult:
     @property
+    def board(self) -> Board:
+        return self._board
+
+    @property
+    def target(self) -> Target:
+        return self._target
+
+    @property
     def solution_found(self) -> bool:
         return self._solution_found
 
@@ -45,7 +53,7 @@ class SolverResult:
                     AdditionalSolveInstruction(
                         step.result,
                         step.operation,
-                        step.result))
+                        step.source))
                 final_state = step.result
 
             self._instructions.append(FinalSolveInstruction(final_state))

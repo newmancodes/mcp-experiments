@@ -1,3 +1,4 @@
+from collections import deque
 from collections.abc import Iterable
 
 from board import Board
@@ -16,7 +17,7 @@ class Solution:
         return self._steps
 
     def __init__(self, traversal: StateTraversal[Board, MathematicalOperation]) -> None:
-        steps: list[SolutionStep] = []
+        steps: deque[SolutionStep] = deque()
 
         while traversal.parent and traversal.description:
             step = SolutionStep(
@@ -24,7 +25,7 @@ class Solution:
                 operation=traversal.description,
                 result=traversal.child
             )
-            steps.append(step)
+            steps.appendleft(step)
             traversal = traversal.parent
 
         self._start = traversal.child

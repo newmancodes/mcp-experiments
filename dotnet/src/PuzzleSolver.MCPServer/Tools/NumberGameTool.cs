@@ -18,8 +18,6 @@ public class NumberGameTool
 
             var formatter = new MarkdownSolverResultFormatter();
             return formatter.Format(solution);
-
-            return solution.SolutionFound ? "The game was solved." : "The game could not be solved.";
         }
         catch
         {
