@@ -13,8 +13,17 @@ def echo(message: str) -> str:
     return f"hello {message}"
 
 @mcp.tool(name="number-game-solver",
-          description="Solves a popular numbers game. The game is made up of six digits and the goal is to determine how to manipulate the digits using simple arithmetic operations in order to arrive at the target. The game was made famous on the UK TV Show, Countdown.",
-          annotations=ToolAnnotations(destructiveHint=False, idempotentHint=True, openWorldHint=False, readOnlyHint=True))
+          description=(
+              "Solves a popular numbers game. The game is made up of six digits and "
+              "the goal is to determine how to manipulate the digits using simple "
+              "arithmetic operations in order to arrive at the target. The game was "
+              "made famous on the UK TV Show, Countdown."
+            ),
+            annotations=ToolAnnotations(
+              destructiveHint=False,
+              idempotentHint=True,
+              openWorldHint=False,
+              readOnlyHint=True))
 def solve(numbers: list[int], target: int) -> str:
     try:
         solver = Solver()
@@ -22,7 +31,7 @@ def solve(numbers: list[int], target: int) -> str:
 
         formatter = MarkdownSolverResultFormatter()
         return formatter.format(result)
-    except:
+    except Exception:
         return "The game could not be solved. Check that it is a valid puzzle."
 
 
