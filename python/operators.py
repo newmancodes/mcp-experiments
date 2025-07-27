@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Operator(Enum):
+class Operators(Enum):
     ADDITION = "+"
     SUBTRACTION = "-"
     MULTIPLICATION = "×"

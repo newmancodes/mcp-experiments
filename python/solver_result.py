@@ -1,17 +1,19 @@
 from typing import Self
 from board import Board
 from solution import Solution
+from solve_instruction import SolveInstruction, InitialSolveInstruction, AdditionalSolveInstruction, \
+    FinalSolveInstruction
 from target import Target
 
 
 class SolverResult:
     @property
     def solution_found(self) -> bool:
-        return self._solution is not None
+        return self._solution_found
 
     @property
-    def instructions(self) -> list[str]:
-        return []
+    def instructions(self) -> list[SolveInstruction]:
+        return self._instructions
 
     def __init__(self, board: Board, target: Target, solutions: list[Solution]) -> None:
         """
@@ -24,7 +26,20 @@ class SolverResult:
 
         self._board = board
         self._target = target
-        self._solution = solutions[0] if solutions else None
+        solution = solutions[0] if solutions else None
+        self._solution_found = solution is not None
+
+        self._instructions: list[SolveInstruction] = []
+
+        if self.solution_found:
+            self._instructions.append(InitialSolveInstruction(solution.start))
+            final_state = solution.start
+
+            for step in solution.steps:
+                self._instructions.append(AdditionalSolveInstruction(step.result, step.operation, step.result))
+                final_state = step.result
+
+            self._instructions.append(FinalSolveInstruction(final_state))
 
     @classmethod
     def unsolvable(cls, board: Board, target: Target) -> Self:

@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 
 from number import Number
-from operators import Operator
+from operators import Operators
 
 
 @dataclass
 class MathematicalOperation:
     left_operand: Number
-    operator: Operator
+    operator: Operators
     right_operand: Number
     result: Number

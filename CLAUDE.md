@@ -31,8 +31,10 @@ dotnet run --project src/PuzzleSolver.MCPServer
 ### Python (python/)
 ```bash
 # From python/ directory
-uv run --frozen pytest                         # Run tests (27 tests, 94% coverage)
+uv run --frozen pytest                         # Run tests (37 tests, 95% coverage)
 uv run pytest --cov=. --cov-report=term-missing # Run tests with coverage report
+uv run mypy .                                   # Type checking with MyPy
+uv run ruff check .                             # Linting and code quality
 uv run main.py                                  # Run main script
 ```
 

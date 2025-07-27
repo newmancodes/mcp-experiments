@@ -1,13 +1,31 @@
+from typing import Iterable
+
 from board import Board
 from mathematical_operation import MathematicalOperation
+from solution_step import SolutionStep
 from state_traversal import StateTraversal
 
 
 class Solution:
-    def __init__(self, traversal: StateTraversal[Board, MathematicalOperation]) -> None:
-        """
-        Initializes the Solution with a traversal of the board and operations.
+    @property
+    def start(self) -> Board:
+        return self._start
 
-        :param traversal: A StateTraversal object containing the board and operations.
-        """
-        return
+    @property
+    def steps(self) -> Iterable[SolutionStep]:
+        return self._steps
+
+    def __init__(self, traversal: StateTraversal[Board, MathematicalOperation]) -> None:
+        steps: list[SolutionStep] = []
+
+        while traversal.parent and traversal.description:
+            step = SolutionStep(
+                source=traversal.parent.child,
+                operation=traversal.description,
+                result=traversal.child
+            )
+            steps.append(step)
+            traversal = traversal.parent
+
+        self._start = traversal.child
+        self._steps = steps

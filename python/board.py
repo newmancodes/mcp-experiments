@@ -1,8 +1,12 @@
-from typing import Self
+from dataclasses import dataclass
+from typing import Iterable, Self
 
 from board_rules import _BoardRules
 from exceptions import InvalidBoardSizeError, InvalidNumberError, NumberReuseError
+from mathematical_operation import MathematicalOperation
 from number import Number, NumberCategory
+from operators import Operators
+from target import Target
 
 
 class Board:
@@ -12,13 +16,105 @@ class Board:
 
         :param numbers: A list of integers representing the board.
         """
+        numbers.sort(key=lambda num: num.value)
         self._numbers = tuple(numbers)
+
+    def __eq__(self, other: object) -> bool:
+        """
+        Checks equality with another Board.
+
+        :param other: Another Board instance.
+        :return: True if both boards should be considered equal, False otherwise.
+        """
+        if not isinstance(other, Board):
+            return False
+
+        return str(self) == str(other)
+    
+    def __hash__(self) -> int:
+        return hash(str(self))
 
     def __str__(self) -> str:
         return ", ".join(str(number.value) for number in self._numbers)
+    
+    def is_solved(self, target: Target) -> bool:
+        """
+        Checks if the board is solved for the given target.
+
+        :param target: The target number to check against.
+        :return: True if the board is solved, False otherwise.
+        """
+        return len(tuple(filter(lambda num: num.value == target.target, self._numbers))) > 0
+    
+    def _generate_possible_operations(self) -> Iterable["Board.PossibleAction"]:
+        """
+        Generates possible operations from the current board state.
+
+        :return: An iterable of PossibleAction instances.
+        """
+        if len(self._numbers) == 1:
+            return
+        
+        for i in range(len(self._numbers) - 1):
+            for j in range(i + 1, len(self._numbers)):
+                ithOperand = self._numbers[i]
+                ithOperandValue = ithOperand.value
+                jthOperand = self._numbers[j]
+                jthOperandValue = jthOperand.value
+
+                # Add
+                addition_result = Number(ithOperandValue + jthOperandValue)
+                addition = MathematicalOperation(ithOperand, Operators.ADDITION, jthOperand, addition_result)
+                yield Board.PossibleAction(addition, self._execute(addition))
+
+                # Multiply
+                multiplication_result = Number(ithOperandValue * jthOperandValue)
+                multiplication = MathematicalOperation(ithOperand, Operators.MULTIPLICATION, jthOperand, multiplication_result)
+                yield Board.PossibleAction(multiplication, self._execute(multiplication))
+                                           
+                # Subtract
+                if ithOperandValue != jthOperandValue:
+                    if ithOperandValue > jthOperandValue:
+                        subtraction_result = Number(ithOperandValue - jthOperandValue)
+                        subtraction = MathematicalOperation(ithOperand, Operators.SUBTRACTION, jthOperand, subtraction_result)
+                        yield Board.PossibleAction(subtraction, self._execute(subtraction))
+                    else:
+                        subtraction_result = Number(jthOperandValue - ithOperandValue)
+                        subtraction = MathematicalOperation(jthOperand, Operators.SUBTRACTION, ithOperand, subtraction_result)
+                        yield Board.PossibleAction(subtraction, self._execute(subtraction))
+
+                # Divide
+                if ithOperandValue == jthOperandValue:
+                    division_result = Number(1)
+                    division = MathematicalOperation(ithOperand, Operators.DIVISION, jthOperand, division_result)
+                    yield Board.PossibleAction(division, self._execute(division))
+                elif ithOperandValue > jthOperandValue:
+                    if ithOperandValue % jthOperandValue:
+                        division_result = Number(ithOperandValue // jthOperandValue)
+                        division = MathematicalOperation(ithOperand, Operators.DIVISION, jthOperand, division_result)
+                        yield Board.PossibleAction(division, self._execute(division))
+                else:
+                    if jthOperandValue % ithOperandValue:
+                        division_result = Number(jthOperandValue // ithOperandValue)
+                        division = MathematicalOperation(jthOperand, Operators.DIVISION, ithOperand, division_result)
+                        yield Board.PossibleAction(division, self._execute(division))
+
+    def _execute(self, operation: MathematicalOperation) -> "Board":
+        """
+        Executes the given operation on the board and returns a new board state.
+
+        :param operation: The mathematical operation to execute.
+        :return: A new Board instance with the result of the operation.
+        """
+        new_numbers = list(self._numbers)
+        new_numbers.remove(operation.left_operand)
+        new_numbers.remove(operation.right_operand)
+        new_numbers.append(operation.result)
+
+        return Board(new_numbers)
 
     @classmethod
-    def from_numbers(cls, numbers: list[int]) -> Self:
+    def from_numbers(cls, numbers: list[int]) -> "Board":
         """
         Factory method to create a Board from a list of numbers.
 
@@ -41,7 +137,7 @@ class Board:
         """
 
         def __init__(self) -> None:
-            self._numbers = []
+            self._numbers: list[Number] = []
 
         def with_number(self, number: int) -> Self:
             """
@@ -69,3 +165,8 @@ class Board:
             :return: An instance of Board.
             """
             return Board(self._numbers)
+        
+    @dataclass
+    class PossibleAction:
+        operation: MathematicalOperation
+        result: "Board"
