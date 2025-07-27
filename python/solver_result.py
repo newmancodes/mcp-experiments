@@ -1,8 +1,13 @@
 from typing import Self
+
 from board import Board
 from solution import Solution
-from solve_instruction import SolveInstruction, InitialSolveInstruction, AdditionalSolveInstruction, \
-    FinalSolveInstruction
+from solve_instruction import (
+    AdditionalSolveInstruction,
+    FinalSolveInstruction,
+    InitialSolveInstruction,
+    SolveInstruction,
+)
 from target import Target
 
 
@@ -31,12 +36,16 @@ class SolverResult:
 
         self._instructions: list[SolveInstruction] = []
 
-        if self.solution_found:
+        if solution is not None:
             self._instructions.append(InitialSolveInstruction(solution.start))
             final_state = solution.start
 
             for step in solution.steps:
-                self._instructions.append(AdditionalSolveInstruction(step.result, step.operation, step.result))
+                self._instructions.append(
+                    AdditionalSolveInstruction(
+                        step.result,
+                        step.operation,
+                        step.result))
                 final_state = step.result
 
             self._instructions.append(FinalSolveInstruction(final_state))

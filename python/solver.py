@@ -1,4 +1,5 @@
-from typing import Iterable
+from collections.abc import Iterable
+
 from board import Board
 from breadth_first_search import BreadthFirstSearch
 from mathematical_operation import MathematicalOperation
@@ -27,8 +28,11 @@ class Solver:
             return SolverResult.with_solutions(board, target, [ solution ])
 
         return SolverResult.unsolvable(board, target)
-    
-    def _generate_possible_actions(self, traversal: StateTraversal[Board, MathematicalOperation]) -> Iterable[StateTraversal[Board, MathematicalOperation]]:
+
+    def _generate_possible_actions(
+            self,
+            traversal: StateTraversal[Board, MathematicalOperation]
+    ) -> Iterable[StateTraversal[Board, MathematicalOperation]]:
         """
         Generates possible actions from the current state traversal.
 
