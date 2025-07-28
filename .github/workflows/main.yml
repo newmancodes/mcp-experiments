@@ -49,8 +49,7 @@ jobs:
             file: ./dotnet/Dockerfile
             push: true
             tags: |
-              newmancodes/puzzle-solver-dotnet:latest
-              newmancodes/puzzle-solver-dotnet:0.1.0
+              newmancodes/puzzle-solver:0.1.0-dotnet
     
     build-python:
         runs-on: ubuntu-latest
