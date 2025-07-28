@@ -12,8 +12,9 @@ mcp = FastMCP("puzzle-solver-python")
               title="Available Numbers",
               mime_type="application/json",
               uri="numbers://category/{category}",
-              description="A template resource describing the numbers available and their "
-                          "usage constraints for a given category (Small or Large)."
+              description="A template resource describing the numbers available and "
+                          "their usage constraints for a given category (Small or "
+                          "Large)."
              )
 def available_numbers(category: str) -> dict[str, str | list[int] | int]:
     if category == "small":
