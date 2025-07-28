@@ -44,12 +44,13 @@ jobs:
         
         - name: Build and push
           uses: docker/build-push-action@v6
-          if: false
           with:
             context: ./dotnet
             file: ./dotnet/Dockerfile
             push: true
-            tags: newmancodes/puzzle-solver:dotnet-latest
+            tags: |
+              newmancodes/puzzle-solver-dotnet:latest
+              newmancodes/puzzle-solver-dotnet:0.1.0
     
     build-python:
         runs-on: ubuntu-latest
