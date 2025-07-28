@@ -48,6 +48,11 @@ public class Number
         { 75, new Number(75, NumberCategory.Large) },
         { 100, new Number(100, NumberCategory.Large) }
     }.AsReadOnly();
+
+    public static IEnumerable<Number> FromCategory(NumberCategory category)
+    {
+        return _commonNumbers.Values.Where(n => n.Category == category);
+    }
 }
 
 public enum NumberCategory

@@ -1,12 +1,17 @@
 namespace PuzzleSolver.NumbersGame;
 
-internal static class BoardRules
+public static class BoardRules
 {
     internal const int StartingSize = 6;
 
-    internal static int ReuseLimit(Number number)
+    public static int ReuseLimit(Number number)
     {
-        return number.Category switch
+        return BoardRules.ReuseLimit(number.Category);
+    }
+
+    public static int ReuseLimit(NumberCategory category)
+    {
+        return category switch
         {
             NumberCategory.Large => 1,
             NumberCategory.Small => 2,
