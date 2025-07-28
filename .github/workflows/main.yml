@@ -92,7 +92,7 @@ jobs:
             context: ./python
             file: ./python/Dockerfile
             push: true
-            tags: newmancodes/puzzle-solver:python-latest
+            tags: newmancodes/puzzle-solver:0.1.0-python
     
     build-typescript:
         runs-on: ubuntu-latest
@@ -134,4 +134,4 @@ jobs:
             context: ./python
             file: ./typescript/Dockerfile
             push: true
-            tags: newmancodes/puzzle-solver:node-latest
+            tags: newmancodes/puzzle-solver:0.1.0-node
