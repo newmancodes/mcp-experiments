@@ -1,3 +1,20 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
 WORKDIR /src
 
+COPY ./dotnet .
+
+RUN dotnet restore PuzzleSolver.sln
+
+RUN dotnet build PuzzleSolver.sln -c Release
+
+RUN dotnet publish PuzzleSolver.sln -c Release -o /app
+
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+
+WORKDIR /app
+
+COPY --from=build-env /app .
+
+EXPOSE 80
+
+ENTRYPOINT ["dotnet", "PuzzleSolver.MCPServer.dll"]
