@@ -3,11 +3,11 @@
 		// "puzzle-solver-dotnet": {
 		// 	"url": "http://localhost:5001",
 		// 	"type": "http"
-		// }
-		// "puzzle-solver-python": {
-		// 	"url": "http://localhost:8000/mcp",
-		// 	"type": "http"
-		// }
+		// // }
+		"puzzle-solver-python": {
+			"url": "http://localhost:8000/mcp",
+			"type": "http"
+		}
 	},
 	"inputs": []
 }
