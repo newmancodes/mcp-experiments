@@ -23,7 +23,7 @@ class Solution:
             step = SolutionStep(
                 source=traversal.parent.child,
                 operation=traversal.description,
-                result=traversal.child,
+                result=traversal.child
             )
             steps.appendleft(step)
             traversal = traversal.parent

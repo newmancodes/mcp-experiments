@@ -50,8 +50,10 @@ class SolverResult:
 
             for step in solution.steps:
                 self._instructions.append(
-                    AdditionalSolveInstruction(step.result, step.operation, step.source)
-                )
+                    AdditionalSolveInstruction(
+                        step.result,
+                        step.operation,
+                        step.source))
                 final_state = step.result
 
             self._instructions.append(FinalSolveInstruction(final_state))
