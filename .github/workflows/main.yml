@@ -58,6 +58,11 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Setup Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.13'
+
+        - name: Setup uv
           uses: astral-sh/setup-uv@v6
           with:
             version: 'latest'
@@ -65,7 +70,7 @@ jobs:
         - name: Run all quality checks
           run: |
             cd python
-            uv run --frozen tox -e lint,typecheck,format-check,py313
+            uv run --frozen tox -e test,lint,typecheck,format-check
 
         - name: Login to Docker Hub
           uses: docker/login-action@v3
