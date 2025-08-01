@@ -62,10 +62,10 @@ jobs:
           with:
             version: 'latest'
 
-        - name: Run all quality checks with tox
+        - name: Run all quality checks
           run: |
             cd python
-            uv run tox -e lint,typecheck,format-check,py312
+            uv run --frozen tox -e lint,typecheck,format-check,py313
 
         - name: Login to Docker Hub
           uses: docker/login-action@v3

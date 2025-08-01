@@ -29,22 +29,21 @@ dotnet run --project src/PuzzleSolver.MCPServer  # Run MCP server
 ### Python (python/)
 ```bash
 # From python/ directory
+# Using tox for automated testing and quality assurance (recommended)
+tox                                               # Run all default environments (py313, lint, typecheck, format-check)
+tox -e lint                                       # Run only linting with ruff
+tox -e typecheck                                  # Run only type checking with mypy
+tox -e format-check                               # Check code formatting
+tox -e format                                     # Format code with ruff
+tox -e py313                                      # Run tests with coverage (Python 3.13)
+tox -e all                                        # Run all quality checks and tests in sequence
+
 # Traditional approach (still supported)
 uv run --frozen pytest                           # Run tests (34 tests)
 uv run pytest --cov=. --cov-report=term-missing  # Run tests with coverage report
 uv run mypy .                                     # Type checking with MyPy
 uv run ruff check .                               # Linting and code quality
 uv run main.py                                    # Run MCP server
-
-# Using tox for automated testing and quality assurance (recommended)
-tox                                               # Run all default environments (py312, lint, typecheck, format-check)
-tox -e lint                                       # Run only linting with ruff
-tox -e typecheck                                  # Run only type checking with mypy
-tox -e format-check                               # Check code formatting
-tox -e format                                     # Format code with ruff
-tox -e py312                                      # Run tests with coverage (Python 3.12)
-tox -e all                                        # Run all quality checks and tests in sequence
-tox -e py311,py312,py313                          # Test multiple Python versions (if available)
 ```
 
 ### TypeScript (typescript/)
