@@ -29,11 +29,22 @@ dotnet run --project src/PuzzleSolver.MCPServer  # Run MCP server
 ### Python (python/)
 ```bash
 # From python/ directory
+# Traditional approach (still supported)
 uv run --frozen pytest                           # Run tests (34 tests)
 uv run pytest --cov=. --cov-report=term-missing  # Run tests with coverage report
 uv run mypy .                                     # Type checking with MyPy
 uv run ruff check .                               # Linting and code quality
 uv run main.py                                    # Run MCP server
+
+# Using tox for automated testing and quality assurance (recommended)
+tox                                               # Run all default environments (py312, lint, typecheck, format-check)
+tox -e lint                                       # Run only linting with ruff
+tox -e typecheck                                  # Run only type checking with mypy
+tox -e format-check                               # Check code formatting
+tox -e format                                     # Format code with ruff
+tox -e py312                                      # Run tests with coverage (Python 3.12)
+tox -e all                                        # Run all quality checks and tests in sequence
+tox -e py311,py312,py313                          # Test multiple Python versions (if available)
 ```
 
 ### TypeScript (typescript/)
@@ -92,6 +103,14 @@ npm run dev         # Run with tsx (currently empty server)
 - Comprehensive validation and error handling
 - Generic state traversal and BFS implementation
 - HTTP transport for MCP communication
+
+**Testing and Quality Assurance:**
+- **tox** integration for automated testing and quality assurance
+- Isolated testing environments ensuring consistency between local development and CI/CD
+- Multi-environment support: lint (ruff), typecheck (mypy), format-check, testing (pytest)
+- Support for multiple Python versions (3.11, 3.12, 3.13)
+- Single command (`tox`) to run all quality checks
+- Eliminates "works on my machine" issues through environment isolation
 
 ### TypeScript Implementation (Minimal)
 **Current State:**

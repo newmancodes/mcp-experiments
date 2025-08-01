@@ -19,19 +19,17 @@ class Solver:
         :return: The result of the solving attempt.
         """
         search = BreadthFirstSearch[Board, MathematicalOperation](
-            lambda b: b.is_solved(target),
-            lambda t: self._generate_possible_actions(t)
+            lambda b: b.is_solved(target), lambda t: self._generate_possible_actions(t)
         )
 
         for successful_state_traversal in search.execute(board):
             solution = Solution(successful_state_traversal)
-            return SolverResult.with_solutions(board, target, [ solution ])
+            return SolverResult.with_solutions(board, target, [solution])
 
         return SolverResult.unsolvable(board, target)
 
     def _generate_possible_actions(
-            self,
-            traversal: StateTraversal[Board, MathematicalOperation]
+        self, traversal: StateTraversal[Board, MathematicalOperation]
     ) -> Iterable[StateTraversal[Board, MathematicalOperation]]:
         """
         Generates possible actions from the current state traversal.
@@ -44,5 +42,5 @@ class Solver:
             yield StateTraversal(
                 parent=traversal,
                 description=possible_action.operation,
-                child=possible_action.result
+                child=possible_action.result,
             )
