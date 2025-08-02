@@ -18,7 +18,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     restart: unless-stopped
     networks:
-      - observability
+      - mcp=experiments
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:18888/health"]
       interval: 30s
@@ -27,6 +27,6 @@ services:
       start_period: 40s
 
 networks:
-  observability:
+  mcp=experiments:
     driver: bridge
-    name: mcp-observability
+    name: mcp-experiments
