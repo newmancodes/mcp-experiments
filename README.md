@@ -48,6 +48,38 @@ Then multiplying 6 by that result (10) to get exactly 60
 The solver confirms this is the minimum number of steps possible for this puzzle, though other solutions may exist that take the same or more steps.
 ```
 
+# Local Observability with .NET Aspire Dashboard
+
+For comprehensive observability during local development, this repository includes a Docker Compose setup with the .NET Aspire Dashboard v9.3. This provides an excellent local development experience for viewing OpenTelemetry-compliant telemetry data (logs, traces, and metrics) without requiring external services.
+
+## Running the Observability Stack
+
+Start the .NET Aspire Dashboard using Docker Compose:
+
+```bash
+docker compose up -d
+```
+
+This will start the Aspire Dashboard with the following endpoints:
+
+- **Dashboard UI**: http://localhost:18888 - Interactive web interface for viewing telemetry
+- **OTLP gRPC**: localhost:4317 - OpenTelemetry Protocol gRPC endpoint (standard OTLP port)
+- **OTLP HTTP**: http://localhost:18889 - OpenTelemetry Protocol HTTP endpoint
+
+The dashboard is configured for anonymous access in development mode, making it easy to get started without authentication setup.
+
+## Stopping the Observability Stack
+
+To stop the dashboard:
+
+```bash
+docker compose down
+```
+
+## Integration with MCP Servers
+
+The OTLP endpoints are ready to receive telemetry data from instrumented applications. Future OpenTelemetry instrumentation in the .NET and Python MCP server implementations will automatically send telemetry to these endpoints when running locally.
+
 # Model Context Protocol Inspector
 
 The MCP Inspector is a useful tool for debugging a custom MCP Server without relying on the underlying client's capabiliteies. It's a good first stop in checking if the MCP server is working as expected. You can exeute the Debugging tool via: `npx @modelcontextprotocol/inspector`. I've been using it with v22.15.0 of Node and it appears to work nicely.
