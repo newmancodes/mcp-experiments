@@ -1,0 +1,32 @@
+services:
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.3
+    container_name: aspire-dashboard
+    ports:
+      # Dashboard UI
+      - "18888:18888"
+      # OTLP HTTP endpoint (maps to Aspire's internal port 18890)
+      - "18889:18890"
+      # OTLP gRPC endpoint (maps to Aspire's internal port 18889)
+      - "4317:18889"
+    environment:
+      # Enable dashboard UI on port 18888
+      - ASPNETCORE_URLS=http://+:18888
+      # Enable anonymous access for local development
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+      # Disable authentication for local development
+      - ASPNETCORE_ENVIRONMENT=Development
+    restart: unless-stopped
+    networks:
+      - observability
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:18888/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  observability:
+    driver: bridge
+    name: mcp-observability
