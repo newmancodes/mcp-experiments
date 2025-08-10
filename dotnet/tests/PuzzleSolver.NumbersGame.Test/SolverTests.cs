@@ -1,8 +1,8 @@
-﻿using System.Runtime.InteropServices;
-using Shouldly;
+﻿using Shouldly;
 
 namespace PuzzleSolver.NumbersGame.Test;
 
+[Trait("Category", "Unit")]
 public class SolverTests
 {
     [Fact]
