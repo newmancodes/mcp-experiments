@@ -8,3 +8,5 @@ var app = builder.Build();
 app.MapMcp();
 
 app.Run();
+
+public partial class Program { }
