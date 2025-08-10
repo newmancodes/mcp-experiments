@@ -6,6 +6,6 @@ public record HaystackFindResult(string Needle, string Haystack, IEnumerable<int
 
     public static HaystackFindResult NotFound(string needle, string haystack)
     {
-        return new HaystackFindResult(needle, haystack, []);   
+        return new HaystackFindResult(needle, haystack, []);
     }
 }
