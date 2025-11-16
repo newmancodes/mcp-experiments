@@ -9,7 +9,7 @@ public class SolverTests
     public void An_Impossible_Puzzle_Is_Reported_As_Such()
     {
         // Arrange
-        var board = new[] { 3, 7, 6, 2, 1, 7 };
+        var board = Board.From(new[] { 3, 7, 6, 2, 1, 7 });
         var target = new Target(824);
         var sut = new Solver();
 
@@ -25,7 +25,7 @@ public class SolverTests
     public void An_Already_Solved_Puzzle_Is_Reported_As_Such_With_Solution()
     {
         // Arrange
-        var board = new[] { 1, 2, 3, 4, 5, 100 };
+        var board = Board.From(new[] { 1, 2, 3, 4, 5, 100 });
         var target = new Target(100);
         var sut = new Solver();
         
@@ -49,7 +49,7 @@ public class SolverTests
         var sut = new Solver();
 
         // Act
-        var result = sut.Solve(numbers, new Target(target));
+        var result = sut.Solve(Board.From(numbers), new Target(target));
 
         // Assert
         result.SolutionFound.ShouldBeTrue();
