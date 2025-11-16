@@ -2,6 +2,7 @@ using Shouldly;
 
 namespace PuzzleSolver.NumbersGame.Test;
 
+[Trait("Category", "Unit")]
 public class BoardTests
 {
     [Theory]
@@ -14,7 +15,7 @@ public class BoardTests
         // Arrange
 
         // Act
-        Board board = numbers;
+        var board = Board.From(numbers);
 
         // Assert
         board.Count.ShouldBe(6);
@@ -29,7 +30,7 @@ public class BoardTests
         // Arrange
         
         // Act
-        Action act = () => _ = (Board)numbers;
+        Action act = () => _ = Board.From(numbers);
 
         // Assert
         var ex = act.ShouldThrow<IllegalBoardException>();
@@ -46,7 +47,7 @@ public class BoardTests
         var numbers = new[] { 1, 2, 3, 4, 5, number };
         
         // Act
-        Action act = () => _ = (Board)numbers;
+        Action act = () => _ = Board.From(numbers);
 
         // Assert
         var ex = act.ShouldThrow<IllegalBoardException>();
@@ -70,7 +71,7 @@ public class BoardTests
         var numbers = new[] { smallNumber, smallNumber, smallNumber, 25, 50, 75 };
         
         // Act
-        Action act = () => _ = (Board)numbers;
+        Action act = () => _ = Board.From(numbers);
 
         // Assert
         var ex = act.ShouldThrow<IllegalBoardException>();
@@ -88,7 +89,7 @@ public class BoardTests
         var number = new[] { largeNumber, largeNumber, 1, 2, 3, 4 };
         
         // Act
-        Action act = () => _ = (Board)number;
+        Action act = () => _ = Board.From(number);
         
         // Assert
         var ex = act.ShouldThrow<IllegalBoardException>();

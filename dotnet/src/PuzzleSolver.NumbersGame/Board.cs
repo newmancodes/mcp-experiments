@@ -110,11 +110,11 @@ public class Board
         return new Board(newNumbers);
     }
 
-    public static implicit operator Board(int[] numbers)
+    public static Board From(int[] numbers)
     {
         if (numbers.Length != BoardRules.StartingSize)
         {
-            throw new IllegalBoardException($"Boards require {BoardRules.StartingSize.ToWords()} {"number".Pluralize()}.");
+            throw new IllegalBoardException($"Boards require {BoardRules.StartingSize.ToWords()} numbers.");
         }
         
         var builder = new BoardBuilder();

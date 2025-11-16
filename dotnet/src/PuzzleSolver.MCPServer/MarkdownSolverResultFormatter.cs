@@ -1,4 +1,5 @@
 using System.Text;
+using PuzzleSolver.Common;
 using PuzzleSolver.NumbersGame;
 
 namespace PuzzleSolver.MCPServer;

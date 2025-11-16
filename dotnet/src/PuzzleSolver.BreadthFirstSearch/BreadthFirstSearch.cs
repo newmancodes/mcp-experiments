@@ -5,8 +5,9 @@ public class BreadthFirstSearch<TState, TStateTraversalDescription>
 {
     private readonly Predicate<TState> _successIndicator;
     private readonly Func<StateTraversal<TState, TStateTraversalDescription>, IEnumerable<StateTraversal<TState, TStateTraversalDescription>>> _nextStateGenerator;
-    private readonly Queue<StateTraversal<TState, TStateTraversalDescription>> _candidates;
-    private readonly HashSet<TState> _visited;
+    private readonly Queue<StateTraversal<TState, TStateTraversalDescription>> _frontier;
+    private readonly HashSet<TState> _explored;
+    private readonly IEqualityComparer<TState> _stateComparer;
 
     public BreadthFirstSearch(
         Predicate<TState> successIndicator,
@@ -15,20 +16,21 @@ public class BreadthFirstSearch<TState, TStateTraversalDescription>
     {
         _successIndicator = successIndicator;
         _nextStateGenerator = nextStateGenerator;
-        _candidates = new Queue<StateTraversal<TState, TStateTraversalDescription>>();
-        _visited = new HashSet<TState>(stateComparer);
+        _frontier = new Queue<StateTraversal<TState, TStateTraversalDescription>>();
+        _explored = new HashSet<TState>(stateComparer);
+        _stateComparer = stateComparer;
     }
 
     public IEnumerable<StateTraversal<TState, TStateTraversalDescription>> Execute(TState initialState)
     {
-        _candidates.Enqueue(new StateTraversal<TState, TStateTraversalDescription>(
+        _frontier.Enqueue(new StateTraversal<TState, TStateTraversalDescription>(
             null, 
             null, 
             initialState));
 
-        while (_candidates.TryDequeue(out var candidate))
+        while (_frontier.TryDequeue(out var candidate))
         {
-            _visited.Add(candidate.Child);
+            _explored.Add(candidate.Child);
 
             if (_successIndicator(candidate.Child))
             {
@@ -37,9 +39,10 @@ public class BreadthFirstSearch<TState, TStateTraversalDescription>
 
             foreach (var additionalCandidate in _nextStateGenerator(candidate))
             {
-                if (!_visited.Contains(additionalCandidate.Child))
+                if (!_frontier.Select(f => f.Child).Any(s => _stateComparer.Equals(s, additionalCandidate.Child)) 
+                    && !_explored.Contains(additionalCandidate.Child))
                 {
-                    _candidates.Enqueue(additionalCandidate);
+                    _frontier.Enqueue(additionalCandidate);
                 }
             }
         }

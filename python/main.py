@@ -1,8 +1,8 @@
+from board import Board
+from haystack_find_result_formatter import HaystackFindResultFormatter
+from markdown_solver_result_formatter import MarkdownSolverResultFormatter
 from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
-
-from board import Board
-from markdown_solver_result_formatter import MarkdownSolverResultFormatter
 from solver import Solver
 from target import Target
 

@@ -1,3 +1,5 @@
+using PuzzleSolver.Common;
+
 namespace PuzzleSolver.NumbersGame;
 
 internal class CsvBoardFormatter : IFormatter<Board>

@@ -1,4 +1,4 @@
-namespace PuzzleSolver.NumbersGame;
+namespace PuzzleSolver.Common;
 
 public interface IFormatter<in T>
 {

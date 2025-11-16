@@ -14,7 +14,7 @@ public class NumberGameTool
         try
         {
             var solver = new Solver();
-            var solution = solver.Solve(numbers, new Target(target));
+            var solution = solver.Solve(Board.From(numbers), new Target(target));
 
             var formatter = new MarkdownSolverResultFormatter();
             return formatter.Format(solution);
