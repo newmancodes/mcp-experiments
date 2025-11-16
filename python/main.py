@@ -1,10 +1,8 @@
-from mcp.server.fastmcp import FastMCP
-from mcp.types import ToolAnnotations
-
 from board import Board
 from haystack_find_result_formatter import HaystackFindResultFormatter
-from magnet import Magnet
 from markdown_solver_result_formatter import MarkdownSolverResultFormatter
+from mcp.server.fastmcp import FastMCP
+from mcp.types import ToolAnnotations
 from solver import Solver
 from target import Target
 
@@ -37,27 +35,6 @@ def available_numbers(category: str) -> dict[str, str | list[int] | int]:
 @mcp.tool(description="Echoes the message back to the client.")
 def echo(message: str) -> str:
     return f"hello {message}"
-
-@mcp.tool(name="needle-in-haystack-finder",
-          description="Locates occurrences of a specified value, known as the needle"
-              ", within a larger string, known as the haystack. The search does not "
-              "count overlapping occurrences, so if the searched value (needle) is "
-              "a palindrome, the end of one match will not be counted as the start "
-              "of another potential match.",
-            annotations=ToolAnnotations(
-              destructiveHint=False,
-              idempotentHint=True,
-              openWorldHint=False,
-              readOnlyHint=True))
-def find_needle_occurrences_in_haystack(needle: str, haystack: str) -> str:
-    try:
-        magnet = Magnet()
-        result = magnet.find(needle, haystack)
-
-        formatter = HaystackFindResultFormatter()
-        return formatter.format(result)
-    except Exception:
-        return "The haystack could not be searched."
 
 @mcp.tool(name="number-game-solver",
           description=(
