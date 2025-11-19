@@ -5,8 +5,10 @@ namespace PuzzleSolver.NumbersGame.Test;
 [Trait("Category", "Unit")]
 public class SolverTests
 {
-    [Fact]
-    public void An_Impossible_Puzzle_Is_Reported_As_Such()
+    [Theory]
+    [InlineData(SearchStrategy.BreadthFirst)]
+    [InlineData(SearchStrategy.DepthFirst)]
+    public void An_Impossible_Puzzle_Is_Reported_As_Such(SearchStrategy searchStrategy)
     {
         // Arrange
         var board = Board.From(new[] { 3, 7, 6, 2, 1, 7 });
@@ -14,15 +16,17 @@ public class SolverTests
         var sut = new Solver();
 
         // Act
-        var result = sut.Solve(board, target);
+        var result = sut.Solve(board, target, searchStrategy);
 
         // Assert
         result.SolutionFound.ShouldBeFalse();
         result.Instructions.Count.ShouldBe(0);
     }
 
-    [Fact]
-    public void An_Already_Solved_Puzzle_Is_Reported_As_Such_With_Solution()
+    [Theory]
+    [InlineData(SearchStrategy.BreadthFirst)]
+    [InlineData(SearchStrategy.DepthFirst)]
+    public void An_Already_Solved_Puzzle_Is_Reported_As_Such_With_Solution(SearchStrategy searchStrategy)
     {
         // Arrange
         var board = Board.From(new[] { 1, 2, 3, 4, 5, 100 });
@@ -30,7 +34,7 @@ public class SolverTests
         var sut = new Solver();
         
         // Act
-        var result = sut.Solve(board, target);
+        var result = sut.Solve(board, target, searchStrategy);
         
         // Assert
         result.SolutionFound.ShouldBeTrue();
@@ -38,18 +42,23 @@ public class SolverTests
     }
 
     [Theory]
-    [InlineData(new[] { 1, 2, 3, 4, 5, 6 }, 12, 3)]
-    [InlineData(new[] { 1, 4, 4, 5, 6, 50 }, 350, 4)]
-    [InlineData(new[] { 1, 3, 3, 8, 9, 50 }, 410, 5)]
-    [InlineData(new[] { 2, 3, 3, 5, 6, 75 }, 277, 6)]
-    [InlineData(new[] { 1, 10, 25, 50, 75, 100 }, 813, 7)]
-    public void A_Possible_Puzzle_Is_Reported_As_Such_With_Solution(int[] numbers, int target, int expectedSolutionSteps)
+    [InlineData(new[] { 1, 2, 3, 4, 5, 6 }, 12, SearchStrategy.BreadthFirst, 3)]
+    [InlineData(new[] { 1, 2, 3, 4, 5, 6 }, 12, SearchStrategy.DepthFirst, 4)]
+    [InlineData(new[] { 1, 4, 4, 5, 6, 50 }, 350, SearchStrategy.BreadthFirst, 4)]
+    [InlineData(new[] { 1, 4, 4, 5, 6, 50 }, 350, SearchStrategy.DepthFirst, 6)]
+    [InlineData(new[] { 1, 3, 3, 8, 9, 50 }, 410, SearchStrategy.BreadthFirst, 5)]
+    [InlineData(new[] { 1, 3, 3, 8, 9, 50 }, 410, SearchStrategy.DepthFirst, 6)]
+    [InlineData(new[] { 2, 3, 3, 5, 6, 75 }, 277, SearchStrategy.BreadthFirst, 6)]
+    [InlineData(new[] { 2, 3, 3, 5, 6, 75 }, 277, SearchStrategy.DepthFirst, 6)]
+    [InlineData(new[] { 1, 10, 25, 50, 75, 100 }, 813, SearchStrategy.BreadthFirst, 7)]
+    [InlineData(new[] { 1, 10, 25, 50, 75, 100 }, 813, SearchStrategy.DepthFirst, 7)]
+    public void A_Possible_Puzzle_Is_Reported_As_Such_With_Solution(int[] numbers, int target, SearchStrategy searchStrategy, int expectedSolutionSteps)
     {
         // Arrange
         var sut = new Solver();
 
         // Act
-        var result = sut.Solve(Board.From(numbers), new Target(target));
+        var result = sut.Solve(Board.From(numbers), new Target(target), searchStrategy);
 
         // Assert
         result.SolutionFound.ShouldBeTrue();
