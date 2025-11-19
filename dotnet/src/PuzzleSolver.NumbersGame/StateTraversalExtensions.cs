@@ -1,4 +1,4 @@
-using PuzzleSolver.BreadthFirstSearch;
+using PuzzleSolver.Search;
 
 namespace PuzzleSolver.NumbersGame;
 

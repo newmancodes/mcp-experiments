@@ -1,5 +1,4 @@
 using Humanizer;
-using PuzzleSolver.BreadthFirstSearch;
 
 namespace PuzzleSolver.NumbersGame;
 
@@ -11,7 +10,7 @@ public class Board
     public int Count => _numbers.Count;
     
     public IEnumerable<Number> Options => _numbers;
-
+    
     internal Board(IEnumerable<Number> numbers)
     {
         _numbers = numbers.Order(new NumberComparer()).ToList().AsReadOnly();
@@ -102,11 +101,12 @@ public class Board
 
     private Board Execute(MathematicalOperation operation)
     {
-        var newNumbers = _numbers
-            .Where(n => n != operation.LeftOperand && n != operation.RightOperand)
-            .Concat([ operation.Result ])
-            .ToList();
-    
+        var newNumbers = new List<Number>(_numbers);
+        var leftOperandIndex = newNumbers.FindIndex(0, n => n == operation.LeftOperand);
+        newNumbers.RemoveAt(leftOperandIndex);
+        var rightOperandIndex = newNumbers.FindIndex(0, n => n == operation.RightOperand);
+        newNumbers.RemoveAt(rightOperandIndex);
+        newNumbers.Add(operation.Result);
         return new Board(newNumbers);
     }
 

@@ -13,6 +13,7 @@
     <ItemGroup>
       <ProjectReference Include="..\PuzzleSolver.Common\PuzzleSolver.Common.csproj" />
       <ProjectReference Include="..\PuzzleSolver.BreadthFirstSearch\PuzzleSolver.BreadthFirstSearch.csproj" />
+      <ProjectReference Include="..\PuzzleSolver.DepthFirstSearch\PuzzleSolver.DepthFirstSearch.csproj" />
     </ItemGroup>
 
 </Project>

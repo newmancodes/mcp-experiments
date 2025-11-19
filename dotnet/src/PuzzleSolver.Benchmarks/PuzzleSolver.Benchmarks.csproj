@@ -1,13 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PuzzleSolver.Search\PuzzleSolver.Search.csproj" />
+      <PackageReference Include="BenchmarkDotNet" Version="0.15.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PuzzleSolver.NumbersGame\PuzzleSolver.NumbersGame.csproj" />
     </ItemGroup>
 
 </Project>
