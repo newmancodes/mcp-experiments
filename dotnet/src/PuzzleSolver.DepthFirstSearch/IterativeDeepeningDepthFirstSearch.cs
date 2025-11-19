@@ -2,7 +2,7 @@ using PuzzleSolver.Search;
 
 namespace PuzzleSolver.DepthFirstSearch;
 
-public class IterativeDepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TState, TStateTraversalDescription>
+public class IterativeDeepeningDepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TState, TStateTraversalDescription>
     where TStateTraversalDescription : class
 {
     private readonly Predicate<TState> _successIndicator;
@@ -15,7 +15,7 @@ public class IterativeDepthFirstSearch<TState, TStateTraversalDescription> : ISe
     private readonly int _maximumDepth;
     private readonly IEqualityComparer<TState> _stateComparer;
 
-    public IterativeDepthFirstSearch(
+    public IterativeDeepeningDepthFirstSearch(
         Predicate<TState> successIndicator,
         Func<StateTraversal<TState, TStateTraversalDescription>, IEnumerable<StateTraversal<TState, TStateTraversalDescription>>> nextStateGenerator,
         Func<StateTraversal<TState, TStateTraversalDescription>, int> calculateDepth,

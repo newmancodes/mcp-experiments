@@ -18,7 +18,7 @@ public sealed class Solver
                 b => b.Options.Any(n => n.Value == target.Value),
                 t => t.GeneratePossibleActions(),
                 new BoardEqualityComparer()),
-            SearchStrategy.IterativeDepthFirst => new IterativeDepthFirstSearch<Board, MathematicalOperation>(
+            SearchStrategy.IterativeDeepeningDepthFirst => new IterativeDeepeningDepthFirstSearch<Board, MathematicalOperation>(
                 b => b.Options.Any(n => n.Value == target.Value),
                 t => t.GeneratePossibleActions(),
                 t => board.Count - t.Child.Count,
@@ -41,5 +41,5 @@ public enum SearchStrategy
 {
     BreadthFirst,
     DepthFirst,
-    IterativeDepthFirst
+    IterativeDeepeningDepthFirst
 }
