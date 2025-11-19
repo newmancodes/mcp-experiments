@@ -22,4 +22,11 @@ public class NumbersGameBenchmarks
         var solver = new Solver();
         var solution = solver.Solve(_board, _target, SearchStrategy.DepthFirst);
     }
+    
+    [Benchmark]
+    public void UsingIterativeDepthFirstSearch()
+    {
+        var solver = new Solver();
+        var solution = solver.Solve(_board, _target, SearchStrategy.IterativeDepthFirst);
+    }
 }
