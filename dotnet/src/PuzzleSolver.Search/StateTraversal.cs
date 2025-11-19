@@ -1,4 +1,4 @@
-namespace PuzzleSolver.BreadthFirstSearch;
+﻿namespace PuzzleSolver.Search;
 
 public record StateTraversal<TState, TStateTraversalDescription>(
     StateTraversal<TState, TStateTraversalDescription>? Parent,

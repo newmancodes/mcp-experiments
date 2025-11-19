@@ -1,4 +1,6 @@
-﻿namespace PuzzleSolver.BreadthFirstSearch;
+﻿using PuzzleSolver.Search;
+
+namespace PuzzleSolver.BreadthFirstSearch;
 
 public class BreadthFirstSearch<TState, TStateTraversalDescription>
     where TStateTraversalDescription : class

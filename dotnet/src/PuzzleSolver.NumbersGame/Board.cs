@@ -1,5 +1,4 @@
 using Humanizer;
-using PuzzleSolver.BreadthFirstSearch;
 
 namespace PuzzleSolver.NumbersGame;
 
