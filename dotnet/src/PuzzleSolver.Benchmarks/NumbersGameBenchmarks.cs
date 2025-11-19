@@ -27,6 +27,6 @@ public class NumbersGameBenchmarks
     public void UsingIterativeDepthFirstSearch()
     {
         var solver = new Solver();
-        var solution = solver.Solve(_board, _target, SearchStrategy.IterativeDepthFirst);
+        var solution = solver.Solve(_board, _target, SearchStrategy.IterativeDeepeningDepthFirst);
     }
 }
