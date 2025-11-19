@@ -18,6 +18,12 @@ public sealed class Solver
                 b => b.Options.Any(n => n.Value == target.Value),
                 t => t.GeneratePossibleActions(),
                 new BoardEqualityComparer()),
+            SearchStrategy.IterativeDepthFirst => new IterativeDepthFirstSearch<Board, MathematicalOperation>(
+                b => b.Options.Any(n => n.Value == target.Value),
+                t => t.GeneratePossibleActions(),
+                t => board.Count - t.Child.Count,
+                board.Count,
+                new BoardEqualityComparer()),
             _ => throw new ArgumentOutOfRangeException(nameof(searchStrategy), searchStrategy, "Unsupported search strategy.")
         };
 
@@ -33,6 +39,7 @@ public sealed class Solver
 
 public enum SearchStrategy
 {
+    BreadthFirst,
     DepthFirst,
-    BreadthFirst
+    IterativeDepthFirst
 }

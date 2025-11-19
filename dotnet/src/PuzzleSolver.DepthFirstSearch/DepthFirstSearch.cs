@@ -7,9 +7,7 @@ public class DepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TSta
 {
     private readonly Predicate<TState> _successIndicator;
 
-    private readonly
-        Func<StateTraversal<TState, TStateTraversalDescription>,
-            IEnumerable<StateTraversal<TState, TStateTraversalDescription>>> _nextStateGenerator;
+    private readonly Func<StateTraversal<TState, TStateTraversalDescription>, IEnumerable<StateTraversal<TState, TStateTraversalDescription>>> _nextStateGenerator;
 
     private readonly Stack<StateTraversal<TState, TStateTraversalDescription>> _frontier;
     private readonly HashSet<TState> _explored;
@@ -33,7 +31,6 @@ public class DepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TSta
             null,
             null,
             initialState));
-        var maxLength = 0;
 
         while (_frontier.TryPop(out var candidate))
         {
@@ -50,10 +47,6 @@ public class DepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TSta
                     && !_explored.Contains(additionalCandidate.Child))
                 {
                     _frontier.Push(additionalCandidate);
-                    if (_frontier.Count > maxLength)
-                    {
-                        maxLength = _frontier.Count;
-                    }
                 }
             }
         }
