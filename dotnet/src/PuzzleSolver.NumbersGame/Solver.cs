@@ -1,5 +1,6 @@
 ﻿using PuzzleSolver.BreadthFirstSearch;
 using PuzzleSolver.DepthFirstSearch;
+using PuzzleSolver.Search;
 
 namespace PuzzleSolver.NumbersGame;
 
@@ -7,7 +8,7 @@ public sealed class Solver
 {
     public SolverResult Solve(Board board, Target target)
     {
-        var search = new DepthFirstSearch<Board, MathematicalOperation>(
+        ISearch<Board, MathematicalOperation> search = new DepthFirstSearch<Board, MathematicalOperation>(
             b => b.Options.Any(n => n.Value == target.Value),
             t => t.GeneratePossibleActions(),
             new BoardEqualityComparer());

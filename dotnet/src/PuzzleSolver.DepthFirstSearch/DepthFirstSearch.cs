@@ -2,7 +2,7 @@
 
 namespace PuzzleSolver.DepthFirstSearch;
 
-public class DepthFirstSearch<TState, TStateTraversalDescription>
+public class DepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TState, TStateTraversalDescription>
     where TStateTraversalDescription : class
 {
     private readonly Predicate<TState> _successIndicator;

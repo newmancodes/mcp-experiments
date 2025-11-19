@@ -2,7 +2,7 @@
 
 namespace PuzzleSolver.BreadthFirstSearch;
 
-public class BreadthFirstSearch<TState, TStateTraversalDescription>
+public class BreadthFirstSearch<TState, TStateTraversalDescription> : ISearch<TState, TStateTraversalDescription>
     where TStateTraversalDescription : class
 {
     private readonly Predicate<TState> _successIndicator;
