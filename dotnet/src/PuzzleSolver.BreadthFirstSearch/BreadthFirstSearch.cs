@@ -29,6 +29,7 @@ public class BreadthFirstSearch<TState, TStateTraversalDescription> : ISearch<TS
             null, 
             null, 
             initialState));
+        var maxLength = 0;
 
         while (_frontier.TryDequeue(out var candidate))
         {
@@ -45,6 +46,10 @@ public class BreadthFirstSearch<TState, TStateTraversalDescription> : ISearch<TS
                     && !_explored.Contains(additionalCandidate.Child))
                 {
                     _frontier.Enqueue(additionalCandidate);
+                    if (_frontier.Count > maxLength)
+                    {
+                        maxLength = _frontier.Count;
+                    }
                 }
             }
         }

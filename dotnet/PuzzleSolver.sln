@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolver.Search", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolver.DepthFirstSearch", "src\PuzzleSolver.DepthFirstSearch\PuzzleSolver.DepthFirstSearch.csproj", "{A87AF764-8A94-4935-9D53-F110F586FA2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleSolver.Benchmarks", "src\PuzzleSolver.Benchmarks\PuzzleSolver.Benchmarks.csproj", "{63C70346-4FEB-4AE9-B255-0BE8E838C5E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,9 @@ Global
 		{A87AF764-8A94-4935-9D53-F110F586FA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A87AF764-8A94-4935-9D53-F110F586FA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A87AF764-8A94-4935-9D53-F110F586FA2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C70346-4FEB-4AE9-B255-0BE8E838C5E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C70346-4FEB-4AE9-B255-0BE8E838C5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C70346-4FEB-4AE9-B255-0BE8E838C5E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C70346-4FEB-4AE9-B255-0BE8E838C5E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -33,6 +33,7 @@ public class DepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TSta
             null,
             null,
             initialState));
+        var maxLength = 0;
 
         while (_frontier.TryPop(out var candidate))
         {
@@ -49,6 +50,10 @@ public class DepthFirstSearch<TState, TStateTraversalDescription> : ISearch<TSta
                     && !_explored.Contains(additionalCandidate.Child))
                 {
                     _frontier.Push(additionalCandidate);
+                    if (_frontier.Count > maxLength)
+                    {
+                        maxLength = _frontier.Count;
+                    }
                 }
             }
         }
